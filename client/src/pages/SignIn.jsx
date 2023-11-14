@@ -1,21 +1,21 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+//import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+
 import OAuth from "../components/OAuth";
-import {
-  signInFailure,
-  signInStart,
-  signInSuccess,
-} from "../redux/user/userSlice";
+// import {
+//     signInFailure,
+//     signInSuccess
+// } from "../redux/user/userSlice";
 
 
 const SignIn = () => {
     const [formData, setFormData] = useState({});
-    // const [error, setError] = useState(null);
-    // const [loading, setLoading] = useState(false);
-    const { loading, error } = useSelector((state) => state.user);
+    const [ error,setError] = useState(null);
+    const [ loading,setLoading] = useState(false);
+   // const { loading, error } = useSelector((state) => state.user);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setFormData({
@@ -26,8 +26,8 @@ const SignIn = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // setLoading(true);
-            dispatch(signInStart());
+            setLoading(true);
+            //dispatch(signInStart());
             const res = await fetch("/api/auth/sign-in", {
                 method: "POST",
                 headers: {
@@ -38,19 +38,20 @@ const SignIn = () => {
             const data = await res.json();
             console.log(data);
             if (data.success === false) {
-                dispatch(signInFailure(data.message));
-                // setLoading(false);
-                // setError(data.message);
+                //dispatch(signInFailure(data.message));
+                setLoading(false);
+                setError(data.message);
                 return;
             }
-            dispatch(signInSuccess(data));
-            // setLoading(false);
-            // setError(null);
+            //dispatch(signInSuccess(data));
+             setLoading(false);
+             setError(null);
             navigate("/");
         } catch (error) {
-            dispatch(signInFailure(error.message));
-            // setLoading(false);
-            // setError(error.message);
+            //dispatch(signInFailure(error.message));
+            
+            setLoading(false);
+             setError(error.message);
         }
     };
     console.log(formData);
@@ -81,7 +82,7 @@ const SignIn = () => {
                 <OAuth/>
             </form>
             <div className="flex gap-2 mt-5">
-                <p>Do not Have an account? go to </p>
+                <p>Do not Have an account?</p>
                 <Link to="/sign-up">
                     <span className="text-blue-700 ">Sign Up</span>
                 </Link>
