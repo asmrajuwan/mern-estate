@@ -3,9 +3,10 @@ import { SignIn, SignOut, SignUp, google } from '../controllers/authController.j
 
 const router = express.Router();
 
+router.get('/signout',SignOut);
+
 router.post("/sign-up",SignUp)
 router.post("/sign-in",SignIn)
-router.get('/signout',SignOut)
 router.post("/google", google);
 
 export default router;
