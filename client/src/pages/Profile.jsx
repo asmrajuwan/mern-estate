@@ -18,7 +18,8 @@ import {
     updateUserSuccess
 } from "../redux/user/userSlice";
 
-export default function Profile() {
+ const Profile = () => {
+
     const fileRef = useRef(null);
     const { currentUser, loading, error } = useSelector((state) => state.user);
     const [file, setFile] = useState(undefined);
@@ -203,4 +204,5 @@ export default function Profile() {
                 </p>
         </div>
     );
-}
+};
+export default Profile
