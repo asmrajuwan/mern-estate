@@ -7,7 +7,7 @@ import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ListingItem from '../components/ListingItems';
 
-export default function Home() {
+const Home=()=> {
   const [offerListings, setOfferListings] = useState([]);
   const [saleListings, setSaleListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
@@ -132,5 +132,7 @@ export default function Home() {
         )}
       </div>
     </div>
-  );
-}
+  )
+};
+
+export default Home
