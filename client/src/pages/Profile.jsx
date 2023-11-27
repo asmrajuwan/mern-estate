@@ -1,21 +1,21 @@
 import {
-    getDownloadURL,
-    getStorage,
-    ref,
-    uploadBytesResumable,
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
 } from 'firebase/storage';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { app } from '../firebase';
 import {
-    deleteUserFailure,
-    deleteUserStart,
-    deleteUserSuccess,
-    signOutUserStart,
-    updateUserFailure,
-    updateUserStart,
-    updateUserSuccess,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  signOutUserStart,
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess,
 } from '../redux/user/userSlice';
 export default function Profile() {
   const fileRef = useRef(null);
@@ -214,7 +214,7 @@ export default function Profile() {
           {loading ? 'Loading...' : 'Update'}
         </button>
         <Link
-          className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95'
+          className='bg-[#0891b2] text-white p-3 rounded-lg uppercase text-center hover:opacity-95'
           to={'/create-listing'}
         >
           Create Listing

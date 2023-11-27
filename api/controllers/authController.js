@@ -1,5 +1,6 @@
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { hashPassword } from "../helpers/authHelpers.js";
 import User from "../models/userModel.js";
 import { errorHandler } from "../utils/error.js";
 
@@ -28,7 +29,7 @@ export const SignIn = async (req, res, next) => {
         const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
         const { password: pass, ...rest } = validUser._doc;
         res.cookie("access_token", token, { httpOnly: true })
-        // res.cookie("access_token", token, { httpOnly: true, sameSite: "None", secure: true })
+
             .status(200)
             .json(rest);
     } catch (error) {
@@ -42,8 +43,7 @@ export const google = async (req, res, next) => {
         if (user) {
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
             const { password: pass, ...rest } = user._doc;
-             res.cookie("access_token", token, { httpOnly: true })
-            // res.cookie("access_token", token, { httpOnly: true, sameSite: "None", secure: true })
+            res.cookie("access_token", token, { httpOnly: true })
 
                 .status(200)
                 .json(rest);
@@ -72,12 +72,45 @@ export const google = async (req, res, next) => {
     }
 };
 
-export const SignOut = (req,res,next)=>{
+export const forgotPassword = async (req, res, next) => {
     try {
-       res.clearCookie('access_token');
-       res.status(200).json('User has been signed out!')
+        const { email, newPassword } = req.body;
+
+        if (!email) {
+            return res.status(400).send({ message: "Email is required" });
+        }
+
+        if (!newPassword) {
+            return res.status(400).send({ message: "New password is required" });
+        }
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).send({
+                success: false,
+                message: "Wrong email or answer",
+            });
+        }
+
+        const hashed = await hashPassword(newPassword);
+        await User.findByIdAndUpdate(user._id, { password: hashed });
+
+        return res.status(200).send({
+            success: true,
+            message: "Password reset successfully",
+        });
     } catch (error) {
-        next(error)
-        
+        next(error);
     }
-}
+};
+
+export const SignOut = (req, res, next) => {
+    try {
+        res.clearCookie("access_token");
+        res.status(200).json("User has been signed out!");
+    } catch (error) {
+        next(error);
+    }
+};
+
