@@ -1,24 +1,19 @@
 import cookieParser from 'cookie-parser';
+import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import mongoose from "mongoose";
+import connectDB from './config/db.js';
 import authRouter from "./routes/authRoute.js";
 import listingRouter from "./routes/listingRoute.js";
 import userRouter from "./routes/userRoute.js";
 dotenv.config();
 
-const connectDB = async ()=>{
-    try {
-      const conn = await mongoose.connect(process.env.MONGO_URL)
-      console.log(`Connected to Mongodb database ${conn.connection.host}`)  
-    } catch (error) {
-        console.log(`Error in mongoDb ${error}`)
-        
-    }
-};
 connectDB()
 
+;
 const app = express();
+
+app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
 
