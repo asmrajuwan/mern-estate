@@ -29,7 +29,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter);
 
 // Serve static files
-app.use(express.static(path.join(__dirname, 'client', 'dist')));
+app.use(express.static(path.join(__dirname, '/client/dist')));
 
 // Catch-all route for SPA (Single Page Application) to handle client-side routing
 app.get('*', (req, res) => {
