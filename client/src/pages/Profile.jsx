@@ -49,7 +49,7 @@ export default function Profile() {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setFilePerc(Math.round(progress));
       },
-      (error) => {
+      () => {
         setFileUploadError(true);
       },
       () => {
@@ -116,6 +116,7 @@ export default function Profile() {
       }
       dispatch(deleteUserSuccess(data));
     } catch (error) {
+      // eslint-disable-next-line no-undef
       dispatch(deleteUserFailure(data.message));
     }
   };
