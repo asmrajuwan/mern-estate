@@ -11,7 +11,7 @@ import Profile from './pages/Profile'
 import Search from './pages/Search'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
-import UpdateListing from './pages/updateListing'
+import UpdateListing from './pages/UpdateListing'
 
 const App = () => {
   return (
