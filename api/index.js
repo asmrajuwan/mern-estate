@@ -2,6 +2,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from "dotenv";
 import express from "express";
 import path from 'path';
+import { fileURLToPath } from 'url';
 import authRouter from "./routes/authRoute.js";
 import listingRouter from "./routes/listingRoute.js";
 import userRouter from "./routes/userRoute.js";
@@ -11,6 +12,9 @@ dotenv.config();
 
 
 connectDB();
+
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename); // get the name of the directory
 
 const app = express();
 app.use(express.json());
